@@ -25,6 +25,7 @@ namespace Abstractions.Repository
         public void Delete(T entity)
         {
             this.RepositoryContext.Set<T>().Remove(entity);
+            this.RepositoryContext.SaveChanges();
         }
 
         public IQueryable<T> FindAll()
@@ -39,7 +40,8 @@ namespace Abstractions.Repository
 
         public void Update(T entity)
         {
-             this.RepositoryContext.Set<T>().Update(entity);
+            RepositoryContext.Set<T>().Update(entity);
+            this.RepositoryContext.SaveChanges();
         }
 
         public void Save()

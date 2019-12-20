@@ -26,27 +26,34 @@ namespace Repository.Repositories
             company.Name = newCompany.Name;
             company.Description = newCompany.Description;
 
-            if(newCompany.Location != null)
-            {
-                companyLocation.Id = Guid.NewGuid();
-                companyLocation.CompanyId = company.Id.ToString();
-                companyLocation.Country = newCompany.Location.Country;
-                companyLocation.City = newCompany.Location.City;
-                companyLocation.BuildingNumber = newCompany.Location.BuildingNumber;
-                companyLocation.Latitude = newCompany.Location.Latitude;
-                companyLocation.Longtitude = newCompany.Location.Longtitude;
-                companyLocation.Street = newCompany.Location.Street;
-                companyLocation.Zip = newCompany.Location.Zip;          
-            }
+            //if(newCompany.Location != null)
+            //{
+            //    companyLocation.Id = Guid.NewGuid();
+            //    companyLocation.CompanyId = company.Id.ToString();
+            //    companyLocation.Country = newCompany.Location.Country;
+            //    companyLocation.City = newCompany.Location.City;
+            //    companyLocation.BuildingNumber = newCompany.Location.BuildingNumber;
+            //    companyLocation.Latitude = newCompany.Location.Latitude;
+            //    companyLocation.Longtitude = newCompany.Location.Longtitude;
+            //    companyLocation.Street = newCompany.Location.Street;
+            //    companyLocation.Zip = newCompany.Location.Zip;          
+            //}
             Create(company);
-            this.RepositoryContext.Locations.Add(companyLocation);
+            //this.RepositoryContext.Locations.Add(companyLocation);
             return true;
 
         }
 
         public void DeleteCompany(Company entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+                var company = RepositoryContext.Companies
+                    .Where(v => v.Id == entity.Id).FirstOrDefault();
+                Delete(company);
+            }
+            
+            
         }
 
         public IEnumerable<Company> FindAllCompanies()
@@ -61,12 +68,15 @@ namespace Repository.Repositories
                 return this.RepositoryContext.Companies
                     .Where(v => v.Id == companyId).FirstOrDefault();
             }
-            throw new NotImplementedException();
+            return null;
         }
 
-        public bool UpdateCompany(Company entity)
+        public  void UpdateCompany(Company entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+                Update(entity);
+            }
         }
     }
 }

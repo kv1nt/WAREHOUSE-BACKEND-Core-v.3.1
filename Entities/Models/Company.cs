@@ -19,6 +19,6 @@ namespace Entities.Models
         [MaxLength(3000)]
         public string  Description { get; set; }
 
-        public virtual Lacation Location { get; set; }
+        //public virtual Lacation Location { get; set; }
     }
 }

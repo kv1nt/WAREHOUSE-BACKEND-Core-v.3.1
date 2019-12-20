@@ -10,7 +10,7 @@ namespace Abstractions.Repository.Interfaces
         IEnumerable<Company> FindAllCompanies();
         Company FindByCondition(Guid companyId);
         bool CreateCompany(Company entity);
-        bool UpdateCompany(Company entity);
+        void UpdateCompany(Company entity);
         void DeleteCompany(Company entity);
     }
 }

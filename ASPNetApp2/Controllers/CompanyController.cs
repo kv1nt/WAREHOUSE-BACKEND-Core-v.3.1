@@ -14,7 +14,6 @@ namespace ASPNetApp.Controllers
     [Route("api/[controller]")]
     public class CompanyController : ControllerBase
     {
-
         private IRepositoryWrapper _repository;
 
 
@@ -94,6 +93,51 @@ namespace ASPNetApp.Controllers
                 return StatusCode(500, ex);
             }
 
+        }
+
+        [HttpDelete("{companyId}")]
+        [AllowAnonymous]
+        public IActionResult DeleteCompany(Guid companyId)
+        {
+            try
+            {
+                var company = _repository.CompanyRepo.FindByCondition(companyId);
+
+                if (company == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    _repository.CompanyRepo.DeleteCompany(company);
+                    return Ok("The company was deleted sycessfully");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [HttpPut("{companyId}")]
+        [AllowAnonymous]
+        public IActionResult UpdateCompany(Company newCompany)
+        {
+            try
+            {
+                if (newCompany != null)
+                {
+                    _repository.CompanyRepo.UpdateCompany(newCompany);
+                    return Ok("The company was updated sycessfully");                 
+                } else
+                {
+                    return NotFound();
+                }
+            } catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
         }
     }
 }
