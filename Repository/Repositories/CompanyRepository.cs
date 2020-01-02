@@ -17,10 +17,10 @@ namespace Repository.Repositories
         {
         }
 
-        public bool CreateCompany(Company newCompany)
+        public Company CreateCompany(Company newCompany)
         {
             var company = new Company();
-            var companyLocation = new Lacation();
+            //var companyLocation = new Lacation();
 
             company.Id = Guid.NewGuid();
             company.Name = newCompany.Name;
@@ -40,7 +40,7 @@ namespace Repository.Repositories
             //}
             Create(company);
             //this.RepositoryContext.Locations.Add(companyLocation);
-            return true;
+            return company;
 
         }
 
@@ -48,24 +48,21 @@ namespace Repository.Repositories
         {
             if (entity != null)
             {
-                var company = RepositoryContext.Companies
-                    .Where(v => v.Id == entity.Id).FirstOrDefault();
-                Delete(company);
+                Delete(RepositoryContext.Companies
+                    .Where(v => v.Id == entity.Id).FirstOrDefault());
             }
-            
-            
         }
 
         public IEnumerable<Company> FindAllCompanies()
         {
-            return this.FindAll();
+            return FindAll();
         }
 
         public Company FindByCondition(Guid companyId)
         {
             if(companyId != null)
             {
-                return this.RepositoryContext.Companies
+                return RepositoryContext.Companies
                     .Where(v => v.Id == companyId).FirstOrDefault();
             }
             return null;

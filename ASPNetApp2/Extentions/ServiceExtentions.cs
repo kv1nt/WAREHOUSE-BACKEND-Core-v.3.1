@@ -14,22 +14,29 @@ namespace ASPNetApp.Extentions
 {
     public static class ServiceExtentions
     {
+
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config.GetConnectionString("mssqlconnection");
             services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(connectionString));
         }
 
-        public static void ConfigureCors(this IServiceCollection services, IConfiguration config)
+        public static void ConfigureCors(this IServiceCollection services)
         {
-            var corsBuilder = new CorsPolicyBuilder();
-            corsBuilder.AllowAnyHeader();
-            corsBuilder.AllowAnyMethod();
-            corsBuilder.AllowAnyOrigin();
-            corsBuilder.AllowCredentials();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+        }
 
-            services.AddCors(options => { 
-                options.AddPolicy("AllowSpecificOrigin", corsBuilder.Build());
+        public static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Ma Api", Version = "v1" });
             });
         }
 

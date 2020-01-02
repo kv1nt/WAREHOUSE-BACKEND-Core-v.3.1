@@ -20,7 +20,6 @@ namespace ASPNetApp.Controllers
         public CompanyController(IRepositoryWrapper repository)
         {
             _repository = repository;
-
         }
 
         [HttpGet]
@@ -51,13 +50,13 @@ namespace ASPNetApp.Controllers
         {
             try
             {
-              var isCompanyCreated =  _repository.CompanyRepo.CreateCompany(newCompany);
+              var company =  _repository.CompanyRepo.CreateCompany(newCompany);
 
                 _repository.Save();
 
-                if (isCompanyCreated)
+                if (company != null)
                 {
-                    return Ok();
+                    return Ok(company);
                 }
                 else
                 {
@@ -105,7 +104,7 @@ namespace ASPNetApp.Controllers
 
                 if (company == null)
                 {
-                    return NotFound();
+                    return NotFound("Company doesn't not exists");
                 }
                 else
                 {

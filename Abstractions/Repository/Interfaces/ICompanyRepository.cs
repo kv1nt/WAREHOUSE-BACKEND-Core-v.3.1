@@ -9,7 +9,7 @@ namespace Abstractions.Repository.Interfaces
     {
         IEnumerable<Company> FindAllCompanies();
         Company FindByCondition(Guid companyId);
-        bool CreateCompany(Company entity);
+        Company CreateCompany(Company entity);
         void UpdateCompany(Company entity);
         void DeleteCompany(Company entity);
     }

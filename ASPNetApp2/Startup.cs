@@ -28,17 +28,8 @@ namespace ASPNetApp2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "Ma Api", Version = "v1" });
-            });
-            services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader());
-            });
+            services.ConfigureSwagger();
+            services.ConfigureCors();
             services.ConfigureRepositoryWrapper();
             services.ConfigureSqlContext(Configuration);
 

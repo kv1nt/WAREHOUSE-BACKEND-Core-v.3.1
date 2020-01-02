@@ -44,7 +44,7 @@ namespace Abstractions.Repository
             this.RepositoryContext.SaveChanges();
         }
 
-        public void Save()
+        public  void Save()
         {
             this.RepositoryContext.SaveChanges();
         }
