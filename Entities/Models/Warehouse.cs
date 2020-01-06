@@ -18,16 +18,16 @@ namespace Entities.Models
         public Guid? CompanyId { get; set; }
 
         //[Required(ErrorMessage = "LocationId is required")]
-        //[ForeignKey("LocationFK")]
-        //public Guid? LocationId { get; set; }
+        [ForeignKey("LocationFK")]
+        public Guid LocationId { get; set; }
 
         [Range(0, float.MaxValue)]
         public decimal Square { get; set; }
 
         [MaxLength(3000)]
         public string Description { get; set; }
- 
 
-        public virtual Lacation Location { get; set; }
+
+        //public virtual Lacation Location { get; set; }
     }
 }

@@ -26,19 +26,19 @@ namespace Repository.Repositories
                 warehouse.Square = newWarehouse.Square;
                 warehouse.Description = newWarehouse.Description;
 
-                if(newWarehouse.Location != null)
+                if(newWarehouse.LocationId != null)
                 {
                     var warehouseLocation = new Lacation();
                     warehouseLocation.Id = Guid.NewGuid();
                     warehouseLocation.WarehouseId = warehouse.Id.ToString();
                     warehouseLocation.CompanyId = newWarehouse.CompanyId.ToString();
-                    warehouseLocation.Country = newWarehouse.Location.Country;
-                    warehouseLocation.City = newWarehouse.Location.City;
-                    warehouseLocation.BuildingNumber = newWarehouse.Location.BuildingNumber;
-                    warehouseLocation.Latitude = newWarehouse.Location.Latitude;
-                    warehouseLocation.Longtitude = newWarehouse.Location.Longtitude;
-                    warehouseLocation.Street = newWarehouse.Location.Street;
-                    warehouseLocation.Zip = newWarehouse.Location.Zip;
+                    //warehouseLocation.Country = newWarehouse.Location.Country;
+                    //warehouseLocation.City = newWarehouse.Location.City;
+                    //warehouseLocation.BuildingNumber = newWarehouse.Location.BuildingNumber;
+                    //warehouseLocation.Latitude = newWarehouse.Location.Latitude;
+                    //warehouseLocation.Longtitude = newWarehouse.Location.Longtitude;
+                    //warehouseLocation.Street = newWarehouse.Location.Street;
+                    //warehouseLocation.Zip = newWarehouse.Location.Zip;
 
                     this.RepositoryContext.Locations.Add(warehouseLocation);
                 }

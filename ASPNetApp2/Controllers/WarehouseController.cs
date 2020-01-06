@@ -24,7 +24,7 @@ namespace ASPNetApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCompanies()
+        public IActionResult GetWarehouses()
         {
             try
             {
