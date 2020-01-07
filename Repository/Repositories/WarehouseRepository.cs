@@ -23,25 +23,27 @@ namespace Repository.Repositories
                 var warehouse = new Warehouse();
                 warehouse.Id = Guid.NewGuid();
                 warehouse.CompanyId = newWarehouse.CompanyId;
+                warehouse.LocationId = newWarehouse.LocationId;
                 warehouse.Square = newWarehouse.Square;
                 warehouse.Description = newWarehouse.Description;
 
-                if(newWarehouse.LocationId != null)
-                {
-                    var warehouseLocation = new Lacation();
-                    warehouseLocation.Id = Guid.NewGuid();
-                    warehouseLocation.WarehouseId = warehouse.Id.ToString();
-                    warehouseLocation.CompanyId = newWarehouse.CompanyId.ToString();
-                    //warehouseLocation.Country = newWarehouse.Location.Country;
-                    //warehouseLocation.City = newWarehouse.Location.City;
-                    //warehouseLocation.BuildingNumber = newWarehouse.Location.BuildingNumber;
-                    //warehouseLocation.Latitude = newWarehouse.Location.Latitude;
-                    //warehouseLocation.Longtitude = newWarehouse.Location.Longtitude;
-                    //warehouseLocation.Street = newWarehouse.Location.Street;
-                    //warehouseLocation.Zip = newWarehouse.Location.Zip;
+                
+                //if (newWarehouse != null)
+                //{
+                //    var warehouseLocation = new Lacation();
+                //    warehouseLocation.Id = Guid.NewGuid();
+                //    warehouseLocation.WarehouseId = warehouse.Id.ToString();
+                //    warehouseLocation.CompanyId = newWarehouse.CompanyId.ToString();
+                //    warehouseLocation.Country = newWarehouse.Location.Country;
+                //    warehouseLocation.City = newWarehouse.Location.City;
+                //    warehouseLocation.BuildingNumber = newWarehouse.Location.BuildingNumber;
+                //    warehouseLocation.Latitude = newWarehouse.Location.Latitude;
+                //    warehouseLocation.Longtitude = newWarehouse.Location.Longtitude;
+                //    warehouseLocation.Street = newWarehouse.Location.Street;
+                //    warehouseLocation.Zip = newWarehouse.Location.Zip;
 
-                    this.RepositoryContext.Locations.Add(warehouseLocation);
-                }
+                //    this.RepositoryContext.Locations.Add(warehouseLocation);
+                //}
                 Create(warehouse);
                 return true;
             }
@@ -53,7 +55,11 @@ namespace Repository.Repositories
 
         public void DeleteWarehouse(Warehouse entity)
         {
-            throw new NotImplementedException();
+            if (entity != null)
+            {
+                Delete(RepositoryContext.Warehouses
+                    .Where(v => v.Id == entity.Id).FirstOrDefault());
+            }
         }
 
         public IEnumerable<Warehouse> FindAllWarehouses()
@@ -65,14 +71,19 @@ namespace Repository.Repositories
         {
             if(companyId != null)
             {
-                return this.RepositoryContext.Warehouses.Where(x => x.CompanyId == companyId);
+                return this.RepositoryContext.Warehouses.Where(x => x.CompanyId == companyId.ToString());
             }
             throw new NotImplementedException();
         }
 
         public Warehouse FindByCondition(Guid warehouseId)
         {
-            throw new NotImplementedException();
+            if (warehouseId != null)
+            {
+                return RepositoryContext.Warehouses
+                    .Where(v => v.Id == warehouseId).FirstOrDefault();
+            }
+            return null;
         }
 
         public bool UpdateWarehouse(Warehouse entity)

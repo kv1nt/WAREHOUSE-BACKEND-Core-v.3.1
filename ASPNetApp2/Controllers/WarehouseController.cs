@@ -70,7 +70,7 @@ namespace ASPNetApp.Controllers
 
         }
 
-        [HttpGet("{companyId}")]
+        [HttpGet("{warehouseId}")]
         [AllowAnonymous]
         public IActionResult GetWarehousesByCompanyId(Guid companyId)
         {
@@ -85,6 +85,31 @@ namespace ASPNetApp.Controllers
                 else
                 {
                     return Ok(warehouses);
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [HttpDelete("{companyId}")]
+        [AllowAnonymous]
+        public IActionResult DeleteWarehouse(Guid companyId)
+        {
+            try
+            {
+                var warehouse = _repository.WarehouseRepo.FindByCondition(companyId);
+
+                if (warehouse == null)
+                {
+                    return NotFound("Company doesn't not exists");
+                }
+                else
+                {
+                    _repository.WarehouseRepo.DeleteWarehouse(warehouse);
+                    return Ok("The warehouse was deleted sycessfully");
                 }
             }
             catch (Exception ex)
