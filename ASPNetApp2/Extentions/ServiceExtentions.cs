@@ -18,7 +18,8 @@ namespace ASPNetApp.Extentions
         public static void ConfigureSqlContext(this IServiceCollection services, IConfiguration config)
         {
             var connectionString = config.GetConnectionString("mssqlconnection");
-            services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(connectionString,
+                b => b.MigrationsAssembly("Entities")));
         }
 
         public static void ConfigureCors(this IServiceCollection services)
