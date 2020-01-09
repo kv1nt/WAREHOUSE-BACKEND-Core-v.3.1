@@ -16,7 +16,6 @@ namespace Entities.Models
         [ForeignKey("CompanyFK")]
         public string CompanyId { get; set; }
 
-        [ForeignKey("LocationFK")]
         public string LocationId { get; set; }
 
         [Range(0, float.MaxValue)]
