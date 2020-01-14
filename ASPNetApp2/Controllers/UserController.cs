@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 
 namespace ASPNetApp2.Controllers
 {
-    [Authorize]
+    [Route("api/login")]
     [ApiController]
-    [Route("[controller]")]
     public class UserController : ControllerBase
     {
         private LoginService _loginService;
@@ -22,8 +21,8 @@ namespace ASPNetApp2.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPost("login")]
-        public IActionResult Login([FromBody] Guid id)
+        [HttpPost]
+        public IActionResult Login(string id)
         {
 
             try

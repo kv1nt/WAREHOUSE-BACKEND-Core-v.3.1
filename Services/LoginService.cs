@@ -15,9 +15,9 @@ namespace Services
             _repositoryContext = repositoryContext;
         }
 
-       public bool Login(Guid id)
+       public bool Login(string id)
        {
-            var user = _repositoryContext.Logins.Where(x => x.Id == id);
+            var user = _repositoryContext.Logins.Where(x => x.Id.ToString() == id);
             if(user != null) return true;
               else return false;       
         }
