@@ -21,33 +21,33 @@ namespace ASPNetApp2.Controllers
             _loginService = loginService;
         }
 
-        //[HttpPut]
-        //[AllowAnonymous]
-        //public IActionResult Register([FromBody]UserModel user)
-        //{
-
-        //    try
-        //    {
-        //        var newUser = _loginService.Register(user);
-
-        //        if (newUser != null && user.Password == user.ConfirmPassword)
-        //        {
-        //            return Ok($"User {newUser.Name} registerd syccessfully!");
-        //        }
-        //        else
-        //        {
-        //            return NotFound("User is registred or incorrect password...");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex);
-        //    }
-
-        //}
-
-        [HttpPost]
+        [HttpPut]
         [AllowAnonymous]
+        public IActionResult Register([FromBody]UserModel user)
+        {
+
+            try
+            {
+                var newUser = _loginService.Register(user);
+
+                if (newUser != null && user.Password == user.ConfirmPassword)
+                {
+                    return Ok($"User {newUser.Name} registerd syccessfully!");
+                }
+                else
+                {
+                    return BadRequest("User is registred or incorrect password...");
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
         public IActionResult Login([FromBody]Login login)
         {
 
@@ -61,7 +61,7 @@ namespace ASPNetApp2.Controllers
                 }
                 else
                 {
-                    return NotFound("User not found! Please Register the user... ");
+                    return Ok(login);
                 }
             }
             catch (Exception ex)

@@ -17,7 +17,7 @@ namespace Services
 
        public Login Login(Login login)
        {
-            var user = _repositoryContext.Users
+            var user = _repositoryContext.Logins
                 .FirstOrDefault(x => x.Email == login.Email && x.Password == login.Password);
 
             if (user != null)
@@ -43,7 +43,15 @@ namespace Services
                     ConfirmPassword = newUser.ConfirmPassword
                 };
 
+                var loginData = new Login
+                {
+                    Id = registredUser.Id,
+                    Email = registredUser.Email,
+                    Password = registredUser.Password
+                };
+
                 _repositoryContext.Users.Add(registredUser);
+                _repositoryContext.Logins.Add(loginData);
                 _repositoryContext.SaveChanges();
 
                 return registredUser;
