@@ -11,15 +11,40 @@ namespace ASPNetApp2.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class LoginController : ControllerBase
+    public class UserController : ControllerBase
     {
         private LoginService _loginService;
 
 
-        public LoginController(LoginService loginService)
+        public UserController(LoginService loginService)
         {
             _loginService = loginService;
         }
+
+        //[HttpPut]
+        //[AllowAnonymous]
+        //public IActionResult Register([FromBody]UserModel user)
+        //{
+
+        //    try
+        //    {
+        //        var newUser = _loginService.Register(user);
+
+        //        if (newUser != null && user.Password == user.ConfirmPassword)
+        //        {
+        //            return Ok($"User {newUser.Name} registerd syccessfully!");
+        //        }
+        //        else
+        //        {
+        //            return NotFound("User is registred or incorrect password...");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex);
+        //    }
+
+        //}
 
         [HttpPost]
         [AllowAnonymous]

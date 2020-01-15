@@ -17,24 +17,37 @@ namespace Services
 
        public Login Login(Login login)
        {
-            var user = _repositoryContext.Logins
+            var user = _repositoryContext.Users
                 .FirstOrDefault(x => x.Email == login.Email && x.Password == login.Password);
-            if(user != null) return user;
-              else return null;       
+
+            if (user != null)
+            {
+                return  _repositoryContext.Logins
+                .FirstOrDefault(x => x.Email == login.Email && x.Password == login.Password);
+            }
+            else return null;       
         }
 
-        public bool Register(Login newUser)
+        public UserModel Register(UserModel newUser)
         {
-            var user = _repositoryContext.Logins.Where(x => x.Id == newUser.Id);
+            var user = _repositoryContext.Users
+                .FirstOrDefault(x => x.Email == newUser.Email && x.Password == newUser.Password);
             if (user == null)
             {
-                _repositoryContext.Logins.Add(new Login
+                var registredUser = new UserModel
                 {
                     Id = Guid.NewGuid(),
                     Email = newUser.Email,
-                    Password = newUser.Password
-                }); return true;
-            } else return false;
+                    Name = newUser.Name,
+                    Password = newUser.Password,
+                    ConfirmPassword = newUser.ConfirmPassword
+                };
+
+                _repositoryContext.Users.Add(registredUser);
+                _repositoryContext.SaveChanges();
+
+                return registredUser;
+            } else return null;
         }
     }
 }
