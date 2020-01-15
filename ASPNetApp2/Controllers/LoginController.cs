@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 using System;
@@ -8,29 +9,30 @@ using System.Threading.Tasks;
 
 namespace ASPNetApp2.Controllers
 {
-    [Route("api/login")]
     [ApiController]
-    public class UserController : ControllerBase
+    [Route("api/[controller]")]
+    public class LoginController : ControllerBase
     {
         private LoginService _loginService;
 
 
-        public UserController(LoginService loginService)
+        public LoginController(LoginService loginService)
         {
             _loginService = loginService;
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login(string id)
+        [AllowAnonymous]
+        public IActionResult Login([FromBody]Login login)
         {
 
             try
             {
+                var user = _loginService.Login(login);
 
-                if (_loginService.Login(id))
+                if (user != null)
                 {
-                    return Ok("User logined successfully!");
+                    return Ok(user);
                 }
                 else
                 {

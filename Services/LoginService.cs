@@ -15,11 +15,12 @@ namespace Services
             _repositoryContext = repositoryContext;
         }
 
-       public bool Login(string id)
+       public Login Login(Login login)
        {
-            var user = _repositoryContext.Logins.Where(x => x.Id.ToString() == id);
-            if(user != null) return true;
-              else return false;       
+            var user = _repositoryContext.Logins
+                .FirstOrDefault(x => x.Email == login.Email && x.Password == login.Password);
+            if(user != null) return user;
+              else return null;       
         }
 
         public bool Register(Login newUser)
