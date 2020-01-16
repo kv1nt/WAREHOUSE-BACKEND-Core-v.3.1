@@ -13,6 +13,9 @@ namespace Entities.Models
         [Key]
         public Guid? Id { get; set; }
 
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+
         [MaxLength(300)]
         public string  Name { get; set; }
 

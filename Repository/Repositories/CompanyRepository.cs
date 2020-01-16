@@ -20,26 +20,13 @@ namespace Repository.Repositories
         public Company CreateCompany(Company newCompany)
         {
             var company = new Company();
-            //var companyLocation = new Lacation();
 
             company.Id = Guid.NewGuid();
+            company.UserId = newCompany.UserId;
             company.Name = newCompany.Name;
             company.Description = newCompany.Description;
 
-            //if(newCompany.Location != null)
-            //{
-            //    companyLocation.Id = Guid.NewGuid();
-            //    companyLocation.CompanyId = company.Id.ToString();
-            //    companyLocation.Country = newCompany.Location.Country;
-            //    companyLocation.City = newCompany.Location.City;
-            //    companyLocation.BuildingNumber = newCompany.Location.BuildingNumber;
-            //    companyLocation.Latitude = newCompany.Location.Latitude;
-            //    companyLocation.Longtitude = newCompany.Location.Longtitude;
-            //    companyLocation.Street = newCompany.Location.Street;
-            //    companyLocation.Zip = newCompany.Location.Zip;          
-            //}
             Create(company);
-            //this.RepositoryContext.Locations.Add(companyLocation);
             return company;
 
         }
@@ -53,9 +40,15 @@ namespace Repository.Repositories
             }
         }
 
+        public IEnumerable<Company> FindAllCompanies(string userId)
+        {
+            return RepositoryContext.Companies
+                                    .Where(v => v.UserId == userId).ToList();
+        }
+
         public IEnumerable<Company> FindAllCompanies()
         {
-            return FindAll();
+            throw new NotImplementedException();
         }
 
         public Company FindByCondition(Guid companyId)

@@ -7,7 +7,7 @@ namespace Abstractions.Repository.Interfaces
 {
     public interface IWarehouseRepository : IRepository<Warehouse>
     {
-        IEnumerable<Warehouse> FindAllWarehouses();
+        IEnumerable<Warehouse> FindAllWarehouses(string userId);
         IEnumerable<Warehouse> FindAllWarehousesByCompanyId(Guid companyId);
         Warehouse FindByCondition(Guid warehouseId);
         bool CreateWarehouse(Warehouse entity);

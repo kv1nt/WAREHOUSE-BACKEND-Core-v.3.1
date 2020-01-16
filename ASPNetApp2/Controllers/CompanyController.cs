@@ -22,12 +22,13 @@ namespace ASPNetApp.Controllers
             _repository = repository;
         }
 
-        [HttpGet]
-        public IActionResult GetCompanies()
+        [AllowAnonymous]
+        [HttpGet("{userId}")]
+        public IActionResult GetCompanies(string userId)
         {
             try
             {
-                var companies = _repository.CompanyRepo.FindAllCompanies();
+                var companies = _repository.CompanyRepo.FindAllCompanies(userId);
 
                 if (companies == null)
                 {
@@ -70,29 +71,29 @@ namespace ASPNetApp.Controllers
 
         }
 
-        [HttpGet("{companyId}")]
-        [AllowAnonymous]
-        public IActionResult GetCompanyById(Guid companyId)
-        {
-            try
-            {
-                var company = _repository.CompanyRepo.FindByCondition(companyId);
+        //[HttpGet("{companyId}")]
+        //[AllowAnonymous]
+        //public IActionResult GetCompanyById(Guid companyId)
+        //{
+        //    try
+        //    {
+        //        var company = _repository.CompanyRepo.FindByCondition(companyId);
 
-                if (company == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(company);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+        //        if (company == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            return Ok(company);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex);
+        //    }
 
-        }
+        //}
 
         [HttpDelete("{companyId}")]
         [AllowAnonymous]

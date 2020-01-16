@@ -23,12 +23,12 @@ namespace ASPNetApp.Controllers
 
         }
 
-        [HttpGet]
-        public IActionResult GetWarehouses()
+        [HttpGet("{userId}")]
+        public IActionResult GetWarehouses(string userId)
         {
             try
             {
-                var warehouses = _repository.WarehouseRepo.FindAllWarehouses();
+                var warehouses = _repository.WarehouseRepo.FindAllWarehouses(userId); 
 
                 if (warehouses == null)
                 {
@@ -70,29 +70,29 @@ namespace ASPNetApp.Controllers
 
         }
 
-        [HttpGet("{warehouseId}")]
-        [AllowAnonymous]
-        public IActionResult GetWarehousesByCompanyId(Guid companyId)
-        {
-            try
-            {
-                var warehouses = _repository.WarehouseRepo.FindAllWarehousesByCompanyId(companyId);
+        //[HttpGet("{warehouseId}")]
+        //[AllowAnonymous]
+        //public IActionResult GetWarehousesByCompanyId(Guid companyId)
+        //{
+        //    try
+        //    {
+        //        var warehouses = _repository.WarehouseRepo.FindAllWarehousesByCompanyId(companyId);
 
-                if (warehouses == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    return Ok(warehouses);
-                }
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
+        //        if (warehouses == null)
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            return Ok(warehouses);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, ex);
+        //    }
 
-        }
+        //}
 
         [HttpDelete("{companyId}")]
         [AllowAnonymous]

@@ -15,7 +15,6 @@ namespace ASPNetApp2.Controllers
     {
         private LoginService _loginService;
 
-
         public UserController(LoginService loginService)
         {
             _loginService = loginService;
@@ -25,7 +24,6 @@ namespace ASPNetApp2.Controllers
         [AllowAnonymous]
         public IActionResult Register([FromBody]UserModel user)
         {
-
             try
             {
                 var newUser = _loginService.Register(user);
@@ -43,14 +41,12 @@ namespace ASPNetApp2.Controllers
             {
                 return StatusCode(500, ex);
             }
-
         }
 
         [AllowAnonymous]
         [HttpPost]
         public IActionResult Login([FromBody]Login login)
         {
-
             try
             {
                 var user = _loginService.Login(login);
@@ -58,7 +54,7 @@ namespace ASPNetApp2.Controllers
                 if (user != null)
                 {
                     return Ok(user);
-                }
+                } 
                 else
                 {
                     return Ok(login);

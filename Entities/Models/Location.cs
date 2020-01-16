@@ -19,6 +19,9 @@ namespace Entities.Models
         [ForeignKey("WarehouseFK")]
         public string WarehouseId { get; set; }
 
+        [ForeignKey("UserId")]
+        public string UserId { get; set; }
+
         [MaxLength(300)]
         public string City { get; set; }
 

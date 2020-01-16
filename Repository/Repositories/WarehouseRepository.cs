@@ -23,27 +23,11 @@ namespace Repository.Repositories
                 var warehouse = new Warehouse();
                 warehouse.Id = Guid.NewGuid();
                 warehouse.CompanyId = newWarehouse.CompanyId;
+                warehouse.UserId = newWarehouse.UserId;
                 warehouse.LocationId = newWarehouse.LocationId;
                 warehouse.Square = newWarehouse.Square;
                 warehouse.Description = newWarehouse.Description;
 
-                
-                //if (newWarehouse != null)
-                //{
-                //    var warehouseLocation = new Lacation();
-                //    warehouseLocation.Id = Guid.NewGuid();
-                //    warehouseLocation.WarehouseId = warehouse.Id.ToString();
-                //    warehouseLocation.CompanyId = newWarehouse.CompanyId.ToString();
-                //    warehouseLocation.Country = newWarehouse.Location.Country;
-                //    warehouseLocation.City = newWarehouse.Location.City;
-                //    warehouseLocation.BuildingNumber = newWarehouse.Location.BuildingNumber;
-                //    warehouseLocation.Latitude = newWarehouse.Location.Latitude;
-                //    warehouseLocation.Longtitude = newWarehouse.Location.Longtitude;
-                //    warehouseLocation.Street = newWarehouse.Location.Street;
-                //    warehouseLocation.Zip = newWarehouse.Location.Zip;
-
-                //    this.RepositoryContext.Locations.Add(warehouseLocation);
-                //}
                 Create(warehouse);
                 return true;
             }
@@ -62,9 +46,10 @@ namespace Repository.Repositories
             }
         }
 
-        public IEnumerable<Warehouse> FindAllWarehouses()
+        public IEnumerable<Warehouse> FindAllWarehouses(string userId)
         {
-            return this.FindAll();
+            return RepositoryContext.Warehouses
+                                    .Where(v => v.UserId == userId).ToList();
         }
 
         public IEnumerable<Warehouse> FindAllWarehousesByCompanyId(Guid companyId)
