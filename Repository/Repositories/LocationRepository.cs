@@ -23,6 +23,7 @@ namespace Repository.Repositories
                 var location = new Lacation();
 
                 location.Id = Guid.NewGuid();
+                location.UserId = newLocation.UserId;
                 location.CompanyId = newLocation.Id.ToString();
                 location.Country = newLocation.Country;
                 location.City = newLocation.City;
@@ -45,9 +46,10 @@ namespace Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Lacation> FindAllLocations()
+        public IEnumerable<Lacation> FindAllLocations(string userId)
         {
-            return this.FindAll();
+            return RepositoryContext.Locations
+                                    .Where(v => v.UserId == userId).ToList();
         }
 
         public Lacation FindByCondition(Guid id)

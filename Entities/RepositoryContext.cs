@@ -14,6 +14,7 @@ namespace Entities
         public DbSet<Lacation> Locations { get; set; }
         public DbSet<Login> Logins { get; set; }
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<UserPhoto> UserPhotos { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)

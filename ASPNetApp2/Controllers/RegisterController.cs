@@ -1,58 +1,58 @@
-﻿using Entities.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Services;
 
 namespace ASPNetApp2.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    [ApiController]
+    public class RegisterController : ControllerBase
     {
         private UserService _loginService;
 
-        public UserController(UserService loginService)
+        public RegisterController(UserService loginService)
         {
             _loginService = loginService;
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody]Login login)
+        [AllowAnonymous]
+        public IActionResult Register([FromBody]UserModel user)
         {
             try
             {
-                var user = _loginService.Login(login);
+                var newUser = _loginService.Register(user);
 
-                if (user != null)
+                if (newUser != null && user.Password == user.ConfirmPassword)
                 {
-                    return Ok(user);
-                } 
+                    return Ok($"User {newUser.Name} registerd syccessfully!");
+                }
                 else
                 {
-                    return Ok(login);
+                    return BadRequest("User is registred or incorrect password...");
                 }
             }
             catch (Exception ex)
             {
                 return StatusCode(500, ex);
             }
-
         }
 
-        [HttpPut("{userId}")]
         [AllowAnonymous]
-        public IActionResult UpdateUser(UserModel updatedUser)
+        [HttpGet("{userId}")]
+        public IActionResult GetUserById(string userId)
         {
             try
             {
-                if (updatedUser != null)
+                if (userId != null)
                 {
-                   var user =  _loginService.UpdateUserInfo(updatedUser);
+                    var user = _loginService.GetUserById(userId);
                     return Ok(user);
                 }
                 else
@@ -65,6 +65,5 @@ namespace ASPNetApp2.Controllers
                 return StatusCode(500, ex);
             }
         }
-
     }
 }

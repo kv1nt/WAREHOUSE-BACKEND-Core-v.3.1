@@ -71,30 +71,6 @@ namespace ASPNetApp.Controllers
 
         }
 
-        //[HttpGet("{companyId}")]
-        //[AllowAnonymous]
-        //public IActionResult GetCompanyById(Guid companyId)
-        //{
-        //    try
-        //    {
-        //        var company = _repository.CompanyRepo.FindByCondition(companyId);
-
-        //        if (company == null)
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            return Ok(company);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, ex);
-        //    }
-
-        //}
-
         [HttpDelete("{companyId}")]
         [AllowAnonymous]
         public IActionResult DeleteCompany(Guid companyId)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Abstractions.Repository.Interfaces;
 using Entities.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,12 +23,13 @@ namespace ASPNetApp.Controllers
         }
 
 
-        [HttpGet]
-        public IActionResult GetLocations()
+        [AllowAnonymous]
+        [HttpGet("{userId}")]
+        public IActionResult GetLocations(string userId)
         {
             try
             {
-                var locations = _repository.LocationRepo.FindAllLocations();
+                var locations = _repository.LocationRepo.FindAllLocations(userId);
 
                 if (locations == null)
                 {
@@ -44,6 +46,7 @@ namespace ASPNetApp.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateLocation([FromBody] Lacation newLocation)
         {

@@ -45,7 +45,8 @@ namespace ASPNetApp.Extentions
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-            services.AddScoped<LoginService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<FileService>();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Abstractions.Repository.Interfaces
 {
     public interface ILocationRepository : IRepository<Lacation>
     {
-        IEnumerable<Lacation> FindAllLocations();
+        IEnumerable<Lacation> FindAllLocations(string userId);
         Lacation FindByCondition(Guid id);
         bool CreateLocation(Lacation entity);
         bool UpdateLocation(Lacation entity);
