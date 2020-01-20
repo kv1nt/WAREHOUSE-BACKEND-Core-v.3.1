@@ -28,7 +28,7 @@ namespace ASPNetApp2.Controllers
         {
             try
             {
-                var ph = photo;
+               _fileService.UploadUserPhoto(photo);
 
                 return Ok();
             }

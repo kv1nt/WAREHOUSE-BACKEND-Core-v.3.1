@@ -6,12 +6,12 @@ using System.Text;
 
 namespace Entities.Models.DTO
 {
-    public class UserPhotoDTO : IEntity
+    public class UserPhotoDTO
     {
-        [Key]
-        public Guid? Id { get; set; }
 
-        public int UserId { get; set; }
+        public string  Id { get; set; }
+
+        public string UserId { get; set; }
 
         public string Content { get; set; }
     }
