@@ -28,9 +28,26 @@ namespace ASPNetApp2.Controllers
         {
             try
             {
-               _fileService.UploadUserPhoto(photo);
+                _fileService.UploadUserPhoto(photo);
 
-                return Ok();
+                return Ok("User Phtoto saver successfylly");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{userId}")]
+        public IActionResult GetUserPhoto(string userId)
+        {
+            try
+            {
+               var userPhoto = _fileService.GetUserPhotoByUserID(userId);
+
+                return Ok(userPhoto);
             }
             catch (Exception ex)
             {
