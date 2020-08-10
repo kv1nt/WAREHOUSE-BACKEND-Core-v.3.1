@@ -1,9 +1,6 @@
 ﻿using Entities.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Entities.Models.Products;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Entities
 {
@@ -15,6 +12,8 @@ namespace Entities
         public DbSet<Login> Logins { get; set; }
         public DbSet<UserModel> Users { get; set; }
         public DbSet<UserPhoto> UserPhotos { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductPhoto> ProductPhotos { get; set; }
 
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)

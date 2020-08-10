@@ -43,5 +43,18 @@ namespace Services
             
             return userPhotoDTO;
         }
+
+        public void UpdateUserPhoto(UserPhotoDTO photo)
+        {
+            UserPhoto userPhotoDB = new UserPhoto()
+            {
+                Id = Guid.Parse(photo.Id),
+                UserId = photo.UserId,
+                Content = Encoding.ASCII.GetBytes(photo.Content)
+            };
+
+            _repositoryContext.UserPhotos.Update(userPhotoDB);
+            _repositoryContext.SaveChanges();
+        }
     }
 }

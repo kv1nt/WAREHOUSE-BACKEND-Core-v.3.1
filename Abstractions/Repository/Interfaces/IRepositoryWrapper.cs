@@ -9,6 +9,7 @@ namespace Abstractions.Repository.Interfaces
         ICompanyRepository CompanyRepo { get; }
         IWarehouseRepository WarehouseRepo { get; }
         ILocationRepository LocationRepo { get; }
+        IProductRepository ProductRepo { get; }
 
         void Save();
     }

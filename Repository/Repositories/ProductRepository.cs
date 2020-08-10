@@ -1,0 +1,82 @@
+﻿using Abstractions.Repository;
+using Abstractions.Repository.Interfaces;
+using Entities;
+using Entities.Models;
+using Entities.Models.DTO;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+
+namespace Repository.Repositories
+{
+    public class ProductRepository : RepositoryBase<Product>, IProductRepository
+    {
+        public ProductRepository(RepositoryContext repositoryContext) : base(repositoryContext)
+        {
+        }
+
+        public bool CreateProduct(ProductDTO product)
+        {
+            if (product != null)
+            {
+                try
+                {
+                    Create(new Product()
+                    {
+                        Id = Guid.NewGuid(),
+                        Weight = product.Weight,
+                        Color = product.Color,
+                        Price = product.Price,
+                        Type = product.Type,
+                        Name = product.Name,
+                        Description = product.Description,
+                    });
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<Product> FindAllProducts()
+        {
+            return FindAll();
+        }
+
+        public void DeleteProduct(ProductDTO product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Product> FindAllProducts(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public Product FindByCondition(Guid id)
+        {
+            return RepositoryContext.Products
+                    .Where(p => p.Id == id).FirstOrDefault();
+        }
+
+        public IQueryable<ProductDTO> FindByCondition(Expression<Func<ProductDTO, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateProduct(ProductDTO product)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

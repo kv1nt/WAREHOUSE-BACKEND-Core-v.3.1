@@ -15,11 +15,25 @@ namespace Repository
         public ICompanyRepository companyRepo;
         public IWarehouseRepository warehouseRepo;
         public ILocationRepository locationRepo;
+        public IProductRepository productRepository;
 
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             this.repoContext = repositoryContext;
             repositoryContext.Database.Migrate();
+        }
+
+
+        public IProductRepository ProductRepo
+        {
+            get
+            {
+                if (productRepository == null)
+                {
+                    productRepository = new ProductRepository(repoContext);
+                }
+                return productRepository;
+            }
         }
 
         public ICompanyRepository CompanyRepo

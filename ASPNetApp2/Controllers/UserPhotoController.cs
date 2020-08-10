@@ -41,13 +41,30 @@ namespace ASPNetApp2.Controllers
 
         [AllowAnonymous]
         [HttpGet("{userId}")]
-        public IActionResult GetUserPhoto(string userId)
+        public async Task<IActionResult> GetUserPhoto(string userId)
         {
             try
             {
-               var userPhoto = _fileService.GetUserPhotoByUserID(userId);
+               var userPhoto =   _fileService.GetUserPhotoByUserID(userId);
 
-                return Ok(userPhoto);
+                return  Ok(userPhoto);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+
+        }
+
+        [AllowAnonymous]
+        [HttpPut]
+        public IActionResult UpdateUserPhoto(UserPhotoDTO photo)
+        {
+            try
+            {
+                _fileService.UpdateUserPhoto(photo);
+
+                return Ok("User photo updated successfully ");
             }
             catch (Exception ex)
             {
