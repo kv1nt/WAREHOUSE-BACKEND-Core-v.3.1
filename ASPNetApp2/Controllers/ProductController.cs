@@ -57,6 +57,60 @@ namespace ASPNetApp2.Controllers
         }
 
         [AllowAnonymous]
+        [HttpPut("byname")]
+        public async Task<IActionResult> FilterProductsByName([FromBody]ProductDTO product)
+        {
+            try
+            {
+                var products = await _repository.ProductRepo.GetByNameAsync(product);
+
+                if (products == null) return NotFound();
+                else
+                    return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("byprice")]
+        public async Task<IActionResult> FilterProductsByPrice([FromBody]ProductDTO product)
+        {
+            try
+            {
+                var products = await _repository.ProductRepo.GetByPriceAsync(product);
+
+                if (products == null) return NotFound();
+                else
+                    return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPut("byweight")]
+        public async Task<IActionResult> FilterProductsByWeight([FromBody]ProductDTO product)
+        {
+            try
+            {
+                var products = await _repository.ProductRepo.GetByWeightAsync(product);
+
+                if (products == null) return NotFound();
+                else
+                    return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateProduct([FromBody] ProductDTO newProduct)
         {
