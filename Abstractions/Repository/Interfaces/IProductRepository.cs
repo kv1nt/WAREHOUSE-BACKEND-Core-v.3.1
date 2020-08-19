@@ -13,9 +13,7 @@ namespace Abstractions.Repository.Interfaces
         IEnumerable<Product> FindAllProducts(string userId);
         IEnumerable<Product> FindAllProducts();
         IEnumerable<Product> FindByCondition(ProductDTO product);
-        Task<IQueryable<Product>> GetByNameAsync(ProductDTO product);
-        Task<IQueryable<Product>> GetByWeightAsync(ProductDTO product);
-        Task<IQueryable<Product>> GetByPriceAsync(ProductDTO product);
+        IEnumerable<Product> GetByName(string productName);
         Product FindByCondition(Guid id);
         bool CreateProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);

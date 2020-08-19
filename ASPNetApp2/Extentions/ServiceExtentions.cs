@@ -47,6 +47,7 @@ namespace ASPNetApp.Extentions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<UserService>();
             services.AddScoped<FileService>();
+            services.AddScoped<SearchService>();
         }
     }
 }
