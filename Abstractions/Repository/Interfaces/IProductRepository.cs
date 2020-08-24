@@ -14,6 +14,7 @@ namespace Abstractions.Repository.Interfaces
         IEnumerable<Product> FindAllProducts();
         IEnumerable<Product> FindByCondition(ProductDTO product);
         IEnumerable<Product> GetByName(string productName);
+        IEnumerable<Product> SearchByParameters(ProductDTO product, string tableName, string connectionString);
         Product FindByCondition(Guid id);
         bool CreateProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);

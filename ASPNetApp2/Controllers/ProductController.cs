@@ -7,7 +7,10 @@ using Entities.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Services;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace ASPNetApp2.Controllers
 {
@@ -16,9 +19,13 @@ namespace ASPNetApp2.Controllers
     public class ProductController : Controller
     {
         private IRepositoryWrapper _repository;
-        public ProductController(IRepositoryWrapper repository)
+
+        public IConfiguration _Configuration { get; private set; }
+
+        public ProductController(IRepositoryWrapper repository, IConfiguration Configuration)
         {
             _repository = repository;
+            _Configuration = Configuration;
         }
 
         [AllowAnonymous]
@@ -58,13 +65,17 @@ namespace ASPNetApp2.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("byname")]
-        public IActionResult FilterProductsByName(string name)
+        [HttpPut("byname")]
+        public IActionResult FilterProductsByName([FromBody] ProductDTO newProduct)
         {
             try
             {
-                var products = _repository.ProductRepo.GetByName(name);
-                SearchService.GetFromParams();
+                string conString = ConfigurationExtensions.GetConnectionString(this._Configuration, "mssqlconnection");
+                var products = _repository.ProductRepo.SearchByParameters(
+                               newProduct,
+                               "Product",
+                               conString
+                               );
 
                 if (products == null) return NotFound();
                 else

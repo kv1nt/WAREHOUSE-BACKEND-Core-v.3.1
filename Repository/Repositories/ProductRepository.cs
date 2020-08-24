@@ -1,5 +1,6 @@
 ﻿using Abstractions.Repository;
 using Abstractions.Repository.Interfaces;
+using DBSearchLib;
 using Entities;
 using Entities.Models;
 using Entities.Models.DTO;
@@ -83,6 +84,17 @@ namespace Repository.Repositories
         public IEnumerable<Product> FindByCondition(ProductDTO product)
         {
             throw new NotImplementedException();
+        }
+
+        public IEnumerable<Product> SearchByParameters(ProductDTO product, string tableName, string connectionString)
+        {
+            SerachService serachService = new SerachService();
+           return serachService.Search(new Product
+            {
+                Name = product.Name,
+                Price = product.Price,
+                Weight = product.Weight
+            }, tableName, connectionString);
         }
 
         public IQueryable<ProductDTO> FindByCondition(Expression<Func<ProductDTO, bool>> expression)
