@@ -7,7 +7,7 @@ using System.Text;
 
 namespace DBSearchLib
 {
-    public class SerachService
+    public class SerachService : IDisposable
     {
         /// <summary>
         /// Search in Db
@@ -33,7 +33,10 @@ namespace DBSearchLib
                     typeVariant = item.PropertyType.Name == "String" || item.PropertyType.Name == "Nullable`1" ? 
                                 $" [{item.Name}] = '{item.GetValue(model)}' AND" :
                                 $" [{item.Name}] = { TypeConverter(item, model) } AND";
-                    selectQuery.Append(typeVariant);
+             
+                        selectQuery.Append(typeVariant);
+                    
+                    
                 }
             }
 
@@ -117,6 +120,11 @@ namespace DBSearchLib
                 return propertyInfo.GetValue(obj).ToString();
             }
             
+        }
+
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
         }
     }
 }

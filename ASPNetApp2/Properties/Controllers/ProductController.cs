@@ -65,29 +65,6 @@ namespace ASPNetApp2.Controllers
         }
 
         [AllowAnonymous]
-        [HttpPut("byname")]
-        public IActionResult FilterProductsByName([FromBody] ProductDTO newProduct)
-        {
-            try
-            {
-                string conString = ConfigurationExtensions.GetConnectionString(this._Configuration, "mssqlconnection");
-                var products = _repository.ProductRepo.SearchByParameters(
-                               newProduct,
-                               "Product",
-                               conString
-                               );
-
-                if (products == null) return NotFound();
-                else
-                    return Ok(products);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex);
-            }
-        }
-
-        [AllowAnonymous]
         [HttpPost]
         public IActionResult CreateProduct([FromBody] ProductDTO newProduct)
         {

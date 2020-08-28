@@ -1,4 +1,5 @@
 ﻿using Abstractions.Repository.Interfaces;
+using DBSearchLib;
 using Entities;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +48,7 @@ namespace ASPNetApp.Extentions
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
             services.AddScoped<UserService>();
             services.AddScoped<FileService>();
-            services.AddScoped<SearchService>();
+            services.AddScoped<SerachService>();
         }
     }
 }

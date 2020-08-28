@@ -88,7 +88,7 @@ namespace Repository.Repositories
 
         public IEnumerable<Product> SearchByParameters(ProductDTO product, string tableName, string connectionString)
         {
-            SerachService serachService = new SerachService();
+           SerachService serachService = new SerachService();
            return serachService.Search(new Product
             {
                 Name = product.Name,
