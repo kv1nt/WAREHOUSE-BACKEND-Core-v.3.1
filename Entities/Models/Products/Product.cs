@@ -24,10 +24,10 @@ namespace Entities.Models
         public override string Color { get; set; }
 
         [Range(0, Double.MaxValue)]
-        public override decimal Weight { get; set; }
+        public override decimal? Weight { get; set; }
 
         [Range(0, Double.MaxValue)]
-        public override decimal Price { get; set ; }
+        public override decimal? Price { get; set ; }
 
         [MaxLength(5000)]
         public string Description { get; set; }

@@ -4,6 +4,7 @@ using DBSearchLib;
 using Entities;
 using Entities.Models;
 using Entities.Models.DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -86,15 +87,17 @@ namespace Repository.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> SearchByParameters(ProductDTO product, string tableName, string connectionString)
+        public IEnumerable<ProductDTO> SearchByParameters(ProductDTO product, IConfiguration _Configuration)
         {
-           SerachService serachService = new SerachService();
-           return serachService.Search(new Product
+            if (product.Price == 0) product.Price = null;
+            if (product.Weight == 0) product.Weight = null;
+
+            using (var serachService = new SerachService())
             {
-                Name = product.Name,
-                Price = product.Price,
-                Weight = product.Weight
-            }, tableName, connectionString);
+                string conString = ConfigurationExtensions.GetConnectionString(_Configuration, "mssqlconnection");
+                var products = serachService.Search(product, "Product", conString);
+                return products;
+            }
         }
 
         public IQueryable<ProductDTO> FindByCondition(Expression<Func<ProductDTO, bool>> expression)

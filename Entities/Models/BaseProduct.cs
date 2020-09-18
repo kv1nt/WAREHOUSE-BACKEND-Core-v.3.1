@@ -10,8 +10,8 @@ namespace Entities.Models
         public abstract string Name { get; set; }
         public abstract string Type { get; set; }
         public abstract string Color { get; set; }
-        public abstract decimal Weight { get; set; }
-        public abstract decimal Price { get; set; }
+        public abstract decimal? Weight { get; set; }
+        public abstract decimal? Price { get; set; }
 
     }
 }

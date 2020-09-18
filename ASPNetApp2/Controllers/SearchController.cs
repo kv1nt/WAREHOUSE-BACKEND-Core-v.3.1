@@ -36,8 +36,7 @@ namespace ASPNetApp2.Properties.Controllers
             {
                 using(var serachService = new SerachService())
                 {
-                    string conString = ConfigurationExtensions.GetConnectionString(this._Configuration, "mssqlconnection");
-                    var products = serachService.Search(product, "Product", conString);
+                    var products = _repository.ProductRepo.SearchByParameters(product, this._Configuration);
                     if (products == null) return NotFound();
                     else
                         return Ok(products);

@@ -1,10 +1,12 @@
 ﻿using Entities;
 using Entities.Models;
 using Entities.Models.DTO;
+using Entities.Models.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -55,6 +57,41 @@ namespace Services
 
             _repositoryContext.UserPhotos.Update(userPhotoDB);
             _repositoryContext.SaveChanges();
+        }
+
+        public  IEnumerable<ProductPhoto> GetProductsPhotos()
+        {
+            var productPhotos = _repositoryContext
+                 .ProductPhotos.ToList();
+            return productPhotos;
+        }
+
+        public async Task<ProductPhotoDTO> GetProductPhotoByProductIDAsync(string productId)
+        {
+            var productPhotoDB = _repositoryContext
+                 .ProductPhotos.FirstOrDefault(p => p.ProductId == productId);
+            var userPhotoDTO = new ProductPhotoDTO
+            {
+                Id = productPhotoDB.Id.ToString(),
+                ProductId = productPhotoDB.ProductId,
+                Content = Encoding.ASCII.GetString(productPhotoDB.Content)
+            };
+
+            return  userPhotoDTO;
+        }
+
+        public void UploadProductPhoto(ProductPhotoDTO productPhoto)
+        {
+            ProductPhoto productPhotoDB = new ProductPhoto()
+            {
+                Id = Guid.NewGuid(),
+                ProductId = productPhoto.ProductId,
+                Content = Encoding.ASCII.GetBytes(productPhoto.Content)
+            };
+
+            _repositoryContext.ProductPhotos.Add(productPhotoDB);
+            _repositoryContext.SaveChanges();
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Entities.Models;
 using Entities.Models.DTO;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Abstractions.Repository.Interfaces
         IEnumerable<Product> FindAllProducts();
         IEnumerable<Product> FindByCondition(ProductDTO product);
         IEnumerable<Product> GetByName(string productName);
-        IEnumerable<Product> SearchByParameters(ProductDTO product, string tableName, string connectionString);
+        IEnumerable<ProductDTO> SearchByParameters(ProductDTO product, IConfiguration _Configuration);
         Product FindByCondition(Guid id);
         bool CreateProduct(ProductDTO product);
         void UpdateProduct(ProductDTO product);

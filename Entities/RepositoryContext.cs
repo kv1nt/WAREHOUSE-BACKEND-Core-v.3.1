@@ -16,6 +16,7 @@ namespace Entities
         public DbSet<ProductPhoto> ProductPhotos { get; set; }
         public DbSet<NavLink> NavLinks { get; set; }
 
+
         public RepositoryContext(DbContextOptions<RepositoryContext> options)
             : base(options)
         {
